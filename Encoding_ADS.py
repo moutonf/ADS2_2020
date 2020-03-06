@@ -1,26 +1,44 @@
-# V1.1 Encoding ADS
-# Original author Leon Helgeland
 
-import random  # Import random library
+import random 
+import string  # Importing ASCII letters
 
-string = "Version control system is fun"  # String to encrypt
-shift = random.randint(0, 26)  # Randomly selects an integer between 0 and 26
-
-def uncrypt(x):  # Unencodes the string
-    unencoded_string = ""  # Variable that has new shifted letters appended to it to form the complete string
-    for i in x:  # Loops through each letter of the string
-        unencoded_string += chr(ord(i) - shift)  # Uses the integer we got from random to shift the letters accordingly
-
-    print(f"\nUnencoding string using caesar cipher shifting the letters {shift} times backward.\nString to unencode: {x}\nUnencoded string: {unencoded_string}")
+# The string module will store all alphabet letters in the given variable
+# We clarify that we only need upper case letters
+alphabet = string.ascii_uppercase
 
 
-def ceasar_chipher():  # Encodes the string
-    encoded_string = ""  # Variable that has new shifted letters appended to it to form the complete string
-    for i in string:  # Loops through each letter of the string
-        encoded_string += chr(ord(i) + shift)  # Uses the integer we got from random to shift the letters accordingly
+def cypher_explain():
+    """Short explanation of Caeser Cypher"""
 
-    print(f"Encoding string using caesar cipher shifting the letters {shift} times forward.\nString to encode: {string}\nEncoded string: {encoded_string}")
-    uncrypt(encoded_string)  # Calls the unencoding function
+    print("Caeser Cypher is a form of encryption that involves 'rotating' each letter of a given\n",
+          "string by a certain number of places. 'Rotating' is shifting through the letters of the alphabet.\n",
+          "In order to encode a word - program rotates each letter of the word by the same amount - key.\n")
 
-ceasar_chipher() # Calls the caesar_cipher function
+
+def encoder():
+    """Function that encodes given message with a randomly generated key"""
+
+    message = "Version control system is fun"
+    print("Original message is: \n", message)
+    key = random.randint(0, 26)                          # Randomly generated key
+    print("We encode the original message by ", key)
+
+    message = message.upper()   # first convert all letters of the message into Uppercase letters
+    encrypted_message = ""      # empty string for a new encrypted message
+
+    for char in message:        # check if a letter in the message is in the alphabet
+        if char in alphabet:
+            # we find the new position of each character by first locating it in the alphabet
+            # and then shifting with the key
+            # use modulo operation to escape an error if the new position is larger than alphabet length
+            char_position = (alphabet.find(char) + key) % len(alphabet)
+            encrypted_message += alphabet[char_position]
+        else:
+            encrypted_message += char
+    print("The encoded result:\n", encrypted_message)
+
+
+if __name__ == '__main__':
+    cypher_explain()
+    encoder()
 
