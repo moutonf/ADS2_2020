@@ -24,3 +24,36 @@ def ceasar_chipher():  # Encodes the string
 
 ceasar_chipher() # Calls the caesar_cipher function
 
+# ~~~~~~~~~~~~~~~~~Andrea's Version~~~~~~~~~~~~~~~~~~~~
+import random
+
+def randomInt(): 
+   ran = random.randint(1, 26)
+   return(ran)
+
+def encrypt(text, num):
+
+   result = ""
+
+   # Loop through text
+   for i in range(len(text)):
+      char = text[i]
+      
+      # Encrypt uppercase characters
+      if (char.isupper()):
+         result += chr((ord(char) + num - 65) % 26 + 65)
+
+      # Encryptlowercase characters
+      else:
+         result += chr((ord(char) + num - 97) % 26 + 97)
+
+   return result
+
+text = "Version Control System is fun"
+num = randomInt()
+
+print "Plain Text : " + text
+print "Shift pattern : " + str(num)
+print "Cipher: " + encrypt(text, num)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
